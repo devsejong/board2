@@ -1,9 +1,9 @@
 package net.chandol.article;
 
 import lombok.Getter;
-import org.hibernate.annotations.BatchSize;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,9 +15,15 @@ public class Article {
     private String title;
     private String author;
     private String body;
-    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
-    @BatchSize(size=10)
-    private List<Comment> comments;
+    @Embedded
+    private Address address;
+
+    @ElementCollection
+    @CollectionTable(name = "articleAddress", joinColumns = {@JoinColumn(name="address_id")})
+    private List<Address> multiAddress ;
+
+    @OneToMany(mappedBy = "article")
+    private List<Comment> comments = new ArrayList<>();
 
     protected Article() {}
 
