@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @SpringBootApplication
 @Transactional
@@ -34,9 +35,8 @@ public class Board2Application {
 		Comment comment3 = commentRepository.save(new Comment(article1, "body", "author1"));
 		Comment comment4 = commentRepository.save(new Comment(article2, "body", "author3"));
 
-        System.out.println(articleRepository.findByAuthor("author3"));
-
-
-	}
+        List<Article> author2 = articleRepository.findByAuthor("author2");
+        System.out.println(author2);
+    }
 }
 

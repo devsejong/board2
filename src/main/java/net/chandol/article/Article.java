@@ -15,14 +15,12 @@ public class Article {
     private String title;
     private String author;
     private String body;
-    @Embedded
-    private Address address;
 
     @ElementCollection
     @CollectionTable(name = "articleAddress", joinColumns = {@JoinColumn(name="address_id")})
-    private List<Address> multiAddress ;
+    private List<Address> multiAddress;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
     protected Article() {}
